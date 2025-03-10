@@ -30,6 +30,9 @@
     <ClCompile Include="me\snow\sdk\mapper\mapper.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="me\snow\sdk\minecraft\player\Entity.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="includes\jni\classfile_constants.h">
@@ -66,6 +69,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="me\snow\sdk\mapper\mapper.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="me\snow\sdk\minecraft\player\Entity.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

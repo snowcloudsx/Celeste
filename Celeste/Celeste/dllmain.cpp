@@ -40,9 +40,9 @@ void startThread(HMODULE mod) {
 
 
 
-    while (!GetAsyncKeyState(VK_END)) {
+    while (!GetAsyncKeyState(VK_DELETE)) {
        
-        std::cout << "Minecraft Instace: " << c_minecraft::get_minecraft().cached_object << "\n";
+        std::cout << "local Player Instace: " << c_minecraft::get_minecraft().get_local_player().cached_object << "\n";
 
 
         Sleep(1000);

@@ -12,8 +12,9 @@ void classes::loadLunar()
 void classes::load()
 {
 
-    
-	minecraft_class = jvm::isForge() ? jvm::ForgeFindClass("net.minecraft.client.Minecraft") : jvm::env->FindClass("ave");
+    minecraft_class = jvm::isForge() ? jvm::ForgeFindClass("net.minecraft.client.Minecraft") : jvm::env->FindClass("ave");
+
+	//minecraft_class = jvm::isForge() ? jvm::ForgeFindClass("net.minecraft.client.Minecraft") : jvm::env->FindClass("ave");
 
 
 }

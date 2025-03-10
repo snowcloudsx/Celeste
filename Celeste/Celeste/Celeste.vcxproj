@@ -150,6 +150,7 @@
     <ClCompile Include="me\snow\jvm\jvm.cpp" />
     <ClCompile Include="me\snow\sdk\classes\classes.cpp" />
     <ClCompile Include="me\snow\sdk\minecraft\Minecraft.cpp" />
+    <ClCompile Include="me\snow\sdk\minecraft\player\Entity.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="includes\jni\classfile_constants.h" />
@@ -164,6 +165,7 @@
     <ClInclude Include="me\snow\jvm\jvm.h" />
     <ClInclude Include="me\snow\sdk\classes\classes.h" />
     <ClInclude Include="me\snow\sdk\minecraft\Minecraft.h" />
+    <ClInclude Include="me\snow\sdk\minecraft\player\Entity.h" />
   </ItemGroup>
   <ItemGroup>
     <Library Include="includes\jni\jvm.lib" />
