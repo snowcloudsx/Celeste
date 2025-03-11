@@ -9,6 +9,15 @@ void classes::loadLunar()
 
 }
 
+
+void classes::load1_24() {
+
+    jvm::AssignClass("net.minecraft.client.Minecraft", classes::minecraft_class);
+
+
+}
+
+
 void classes::load()
 {
 

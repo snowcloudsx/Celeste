@@ -126,7 +126,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>NDEBUG;CELESTE_EXPORTS;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>NDEBUG;CELESTE_EXPORTS;_WINDOWS;_USRDLL;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
@@ -139,13 +139,17 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableUAC>false</EnableUAC>
-      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalOptions>/FORCE:MULTIPLE %(AdditionalOptions)</AdditionalOptions>
       <AdditionalLibraryDirectories>$(ProjectDir)includes\jni\jvm.lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="dllmain.cpp" />
+    <ClCompile Include="includes\ImGui\imgui_impl_opengl3.cpp" />
+    <ClCompile Include="includes\ImGui\imgui_impl_win32.cpp" />
+    <ClCompile Include="me\snow\gui\GUI.cpp" />
+    <ClCompile Include="me\snow\gui\Hook.cpp" />
     <ClCompile Include="me\snow\sdk\mapper\mapper.cpp" />
     <ClCompile Include="me\snow\jvm\jvm.cpp" />
     <ClCompile Include="me\snow\sdk\classes\classes.cpp" />
@@ -153,6 +157,16 @@
     <ClCompile Include="me\snow\sdk\minecraft\player\Entity.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="includes\ImGui\imconfig.h" />
+    <ClInclude Include="includes\ImGui\imgui.h" />
+    <ClInclude Include="includes\ImGui\imgui_impl_opengl3.h" />
+    <ClInclude Include="includes\ImGui\imgui_impl_opengl3_loader.h" />
+    <ClInclude Include="includes\ImGui\imgui_impl_win32.h" />
+    <ClInclude Include="includes\ImGui\imgui_internal.h" />
+    <ClInclude Include="includes\ImGui\imgui_stdlib.h" />
+    <ClInclude Include="includes\ImGui\imstb_rectpack.h" />
+    <ClInclude Include="includes\ImGui\imstb_textedit.h" />
+    <ClInclude Include="includes\ImGui\imstb_truetype.h" />
     <ClInclude Include="includes\jni\classfile_constants.h" />
     <ClInclude Include="includes\jni\jawt.h" />
     <ClInclude Include="includes\jni\jawt_md.h" />
@@ -161,6 +175,9 @@
     <ClInclude Include="includes\jni\jni_md.h" />
     <ClInclude Include="includes\jni\jvmti.h" />
     <ClInclude Include="includes\jni\jvmticmlr.h" />
+    <ClInclude Include="includes\MinHook.h" />
+    <ClInclude Include="me\snow\gui\GUI.h" />
+    <ClInclude Include="me\snow\gui\Hook.h" />
     <ClInclude Include="me\snow\sdk\mapper\mapper.h" />
     <ClInclude Include="me\snow\jvm\jvm.h" />
     <ClInclude Include="me\snow\sdk\classes\classes.h" />
@@ -169,6 +186,8 @@
   </ItemGroup>
   <ItemGroup>
     <Library Include="includes\jni\jvm.lib" />
+    <Library Include="includes\lib\imgui.lib" />
+    <Library Include="includes\lib\libMinHook-x64.lib" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

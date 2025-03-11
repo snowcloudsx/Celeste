@@ -7,12 +7,15 @@ namespace classes
 	void load();
 
 	void loadLunar();
+
+
+	void load1_24();
 	//classes
 
 	inline jclass minecraft_class = nullptr;
 	inline jclass LaunchWrapperClassLoaderClass = nullptr;
 	inline jclass LaunchClass = nullptr;
-
+	inline jclass snifferClassUwU = nullptr;
 
 
 	//methods 

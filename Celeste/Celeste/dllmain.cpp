@@ -3,8 +3,8 @@
 #include <jvm.h>
 #include "me/snow/sdk/classes/classes.h"
 #include "me/snow/sdk/minecraft/Minecraft.h"
+#include "me/snow/gui/Hook.h"
 #include <iostream>
-
 void startThread(HMODULE mod) {
     FILE* buf = nullptr;
     AllocConsole();
@@ -12,6 +12,8 @@ void startThread(HMODULE mod) {
 
 
     
+
+
 
 
     jvm::load();
@@ -27,22 +29,35 @@ void startThread(HMODULE mod) {
     }
 
     else if(jvm::env->FindClass("ave") == nullptr && jvm::env->FindClass("net/minecraftforge/common/ForgeVersion") == nullptr){
-        classes::loadLunar();
-        SetConsoleTitle("Celeste b0.01 - Lunar 1.8.9 |  snow.rip ");
+        jclass test = nullptr;
+        jvm::AssignClass("net.minecraft.client.Minecraft", test);
+
+        if (jvm::env->GetStaticMethodID(test, "getInstance", "()Lnet/minecraft/client/Minecraft;") != nullptr) {
+            classes::load1_24();
+            SetConsoleTitle("Celeste b0.01 - Lunar 1.21.4 |  snow.rip ");
+
+
+
+        }
+        else {
+            classes::loadLunar();
+            SetConsoleTitle("Celeste b0.01 - Lunar 1.8.9 |  snow.rip ");
+
+
+        }
     }
-   //if (jvm::isLunar) {
+   
 
 
-   // }
-
-
-    
+    if (Hook::init())
+        goto _shutdown;
 
 
 
     while (!GetAsyncKeyState(VK_DELETE)) {
-       
-        std::cout << "local Player Instace: " << c_minecraft::get_minecraft().get_local_player().cached_object << "\n";
+
+
+        std::cout << " Player Instace: " <<  c_minecraft::get_minecraft().get_local_player().cached_object << "\n";
 
 
         Sleep(1000);
@@ -54,8 +69,15 @@ void startThread(HMODULE mod) {
     if (buf) {
         fclose(buf);
     }
+
+  
+    _shutdown:
+        Hook::shutdown();
+    
     FreeConsole();
     FreeLibraryAndExitThread(mod, 0ul);
+
+
 
 
 }

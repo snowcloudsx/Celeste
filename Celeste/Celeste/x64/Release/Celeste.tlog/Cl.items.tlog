@@ -1,4 +1,8 @@
 C:\Users\Snow\Music\Celeste\Celeste\Celeste\dllmain.cpp;C:\Users\Snow\Music\Celeste\Celeste\Celeste\x64\Release\dllmain.obj
+C:\Users\Snow\Music\Celeste\Celeste\Celeste\includes\ImGui\imgui_impl_opengl3.cpp;C:\Users\Snow\Music\Celeste\Celeste\Celeste\x64\Release\imgui_impl_opengl3.obj
+C:\Users\Snow\Music\Celeste\Celeste\Celeste\includes\ImGui\imgui_impl_win32.cpp;C:\Users\Snow\Music\Celeste\Celeste\Celeste\x64\Release\imgui_impl_win32.obj
+C:\Users\Snow\Music\Celeste\Celeste\Celeste\me\snow\gui\GUI.cpp;C:\Users\Snow\Music\Celeste\Celeste\Celeste\x64\Release\GUI.obj
+C:\Users\Snow\Music\Celeste\Celeste\Celeste\me\snow\gui\Hook.cpp;C:\Users\Snow\Music\Celeste\Celeste\Celeste\x64\Release\Hook.obj
 C:\Users\Snow\Music\Celeste\Celeste\Celeste\me\snow\sdk\mapper\mapper.cpp;C:\Users\Snow\Music\Celeste\Celeste\Celeste\x64\Release\mapper.obj
 C:\Users\Snow\Music\Celeste\Celeste\Celeste\me\snow\jvm\jvm.cpp;C:\Users\Snow\Music\Celeste\Celeste\Celeste\x64\Release\jvm.obj
 C:\Users\Snow\Music\Celeste\Celeste\Celeste\me\snow\sdk\classes\classes.cpp;C:\Users\Snow\Music\Celeste\Celeste\Celeste\x64\Release\classes.obj
