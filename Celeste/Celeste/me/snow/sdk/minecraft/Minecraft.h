@@ -9,4 +9,5 @@ public:
 
 	static c_minecraft get_minecraft();
 	c_entity get_local_player();
+	c_server getServerData();
 };

@@ -2,7 +2,7 @@
 
 
 
-#include <jvm.h>
+#include "../server/Server.h"
 
 
 class c_entity : public c_jobject

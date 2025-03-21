@@ -57,7 +57,7 @@ void startThread(HMODULE mod) {
     while (!GetAsyncKeyState(VK_DELETE)) {
 
 
-        std::cout << " Player Instace: " <<  c_minecraft::get_minecraft().get_local_player().cached_object << "\n";
+        std::cout << " Server Instance: " << c_minecraft::get_minecraft().getServerData().cached_object << "\n";
 
 
         Sleep(1000);

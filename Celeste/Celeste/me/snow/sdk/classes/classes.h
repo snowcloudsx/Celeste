@@ -11,7 +11,7 @@ namespace classes
 
 	void load1_24();
 	//classes
-
+	inline jclass ServerData = nullptr;
 	inline jclass minecraft_class = nullptr;
 	inline jclass LaunchWrapperClassLoaderClass = nullptr;
 	inline jclass LaunchClass = nullptr;

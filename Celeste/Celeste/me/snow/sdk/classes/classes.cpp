@@ -6,6 +6,7 @@
 void classes::loadLunar()
 {
     jvm::AssignClass("net.minecraft.client.Minecraft", classes::minecraft_class);
+    jvm::AssignClass("net.minecraft.client.multiplayer.ServerData", classes::ServerData);
 
 }
 

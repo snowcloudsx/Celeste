@@ -155,6 +155,7 @@
     <ClCompile Include="me\snow\sdk\classes\classes.cpp" />
     <ClCompile Include="me\snow\sdk\minecraft\Minecraft.cpp" />
     <ClCompile Include="me\snow\sdk\minecraft\player\Entity.cpp" />
+    <ClCompile Include="me\snow\sdk\minecraft\server\Server.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="includes\ImGui\imconfig.h" />
@@ -183,6 +184,7 @@
     <ClInclude Include="me\snow\sdk\classes\classes.h" />
     <ClInclude Include="me\snow\sdk\minecraft\Minecraft.h" />
     <ClInclude Include="me\snow\sdk\minecraft\player\Entity.h" />
+    <ClInclude Include="me\snow\sdk\minecraft\server\Server.h" />
   </ItemGroup>
   <ItemGroup>
     <Library Include="includes\jni\jvm.lib" />

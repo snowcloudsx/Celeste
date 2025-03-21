@@ -30,3 +30,11 @@ c_entity c_minecraft::get_local_player()
 
 	return c_entity(jvm::env->GetObjectField(this->cached_object, thePlayerField));
 }
+
+c_server c_minecraft::getServerData()
+{
+	static jfieldID serverdataField = nullptr;
+	serverdataField = jvm::env->GetFieldID(classes::minecraft_class, "currentServerData", "Lnet.minecraft.client.multiplayer.ServerData;");
+
+	return c_server(jvm::env->GetObjectField(this->cached_object, serverdataField));
+}
