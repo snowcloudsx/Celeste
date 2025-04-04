@@ -104,3 +104,5 @@ BOOL APIENTRY DllMain( HMODULE hModule,
     return TRUE;
 }
 
+
+//Here lies the test commit
