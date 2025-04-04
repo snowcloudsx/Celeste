@@ -132,6 +132,20 @@ void GUI::shutdown()
 // Global functions
 //
 
+void RenderBlockingBackdrop() {
+	ImGuiIO& io = ImGui::GetIO();
+
+	// Create a full-screen, invisible window
+	ImGui::SetNextWindowPos(ImVec2(0, 0));
+	ImGui::SetNextWindowSize(ImVec2(io.DisplaySize.x, io.DisplaySize.y));
+	ImGui::PushStyleColor(ImGuiCol_WindowBg, ImVec4(0.2f, 0.2f, 0.2f, 0.8f)); // Semi-transparent gray
+	if (ImGui::Begin("Backdrop", nullptr, ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoSavedSettings | ImGuiWindowFlags_NoInputs | ImGuiWindowFlags_NoMouseInputs)) {
+		// No content needed, just block input
+		ImGui::End();
+	}
+	ImGui::PopStyleColor();
+}
+
 void GUI::draw()
 {
 	if (!do_draw)
@@ -156,90 +170,33 @@ void GUI::draw()
 
 	ImGui::Begin("WaterMark", NULL, ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoMove);
 	{
-		ImGui::Text("celeste.wtf | %s", std::ctime(&end_time));
+		ImGui::Text("Velecent.rip | %s", std::ctime(&end_time));
 	}
 
 	ImGui::End();
 
 	if (GUI::isToggled) {
-		ImGui::SetNextWindowSize({ 600,600 });
-		ImGui::Begin("Celeste | snow.rip", NULL, ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoResize);
+		//add a non-clickable or clickthrough window for the background
+		ImGui::SetNextWindowPos({ 0,0 });
+		ImGui::SetNextWindowSize({ ImGui::GetIO().DisplaySize.x, ImGui::GetIO().DisplaySize.y });
+
+		ImGui::PushStyleColor(ImGuiCol_WindowBg, ImVec4(0.0f, 0.0f, 0.0f, 0.5f));
+
+		ImGui::Begin("Background", NULL, ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoInputs);
 		{
-			// Calculate button width with spacing
-			const float buttonSpacing = 8.0f;
-			const float totalSpacing = buttonSpacing * 2; // Space between 3 buttons = 2 gaps
-			const float buttonWidth = (ImGui::GetContentRegionAvail().x - totalSpacing) / 3;
-
-
-			// Hover effect styling
-			const ImVec4 activeColor = ImVec4(0.26f, 0.59f, 0.98f, 0.40f);
-			const ImVec4 hoverColor = ImVec4(0.26f, 0.59f, 0.98f, 0.80f);
-			ImGui::PushStyleColor(ImGuiCol_ButtonHovered, hoverColor);
-			ImGui::PushStyleColor(ImGuiCol_ButtonActive, activeColor);
-			// Tab buttons with spacing
-			if (ImGui::Button("Tab 1", ImVec2(buttonWidth, 0))) GUI::tabs = 0;
-			ImGui::SameLine(0, buttonSpacing);
-			if (ImGui::Button("Tab 2", ImVec2(buttonWidth, 0))) GUI::tabs = 1;
-			ImGui::SameLine(0, buttonSpacing);
-			if (ImGui::Button("Tab 3", ImVec2(buttonWidth, 0))) GUI::tabs = 2;
-
-		
-
-			ImGui::Spacing();
-			ImGui::Separator();
-			ImGui::Spacing();
-
-			// Toggle button with menu
-			static bool showOptions = false;
-			if (ImGui::Button(showOptions ? "Example Module  ▲" : "Example Module ▼")) {
-				showOptions = !showOptions;
-			}
-
-			if (showOptions) {
-				ImGui::Indent();
-				ImGui::Separator();
-
-				// Slider example
-				static float volume = 0.5f;
-				ImGui::SliderFloat("Value", &volume, 0.0f, 1.0f, "%.2f");
-
-				// Toggle switch example
-				static bool enabled = false;
-				ImGui::Checkbox("Enable Feature", &enabled);
-
-				// Another toggle with different style
-				static bool premium = false;
-				ImVec4* colors = ImGui::GetStyle().Colors;
-				ImGui::PushStyleColor(ImGuiCol_FrameBg, premium ? colors[ImGuiCol_ButtonActive] : colors[ImGuiCol_FrameBg]);
-				ImGui::PushStyleColor(ImGuiCol_FrameBgHovered, premium ? hoverColor : colors[ImGuiCol_FrameBgHovered]);
-				ImGui::Checkbox("Premium Mode", &premium);
-				ImGui::PopStyleColor(2);
-
-				ImGui::Separator();
-				ImGui::Unindent();
-			}
-
-			ImGui::PopStyleColor(2); // Remove button hover/active colors
-
-			// Tab content
-			ImGui::Spacing();
-			ImGui::Separator();
-			ImGui::Spacing();
-
-			if (GUI::tabs == 0) {
-				ImGui::Text("Main Content Tab");
-				// Add more content here
-			}
-			else if (GUI::tabs == 1) {
-				ImGui::Text("Settings Tab");
-				// Add more content here
-			}
-			else if (GUI::tabs == 2) {
-				ImGui::Text("Info Tab");
-				// Add more content here
-			}
+			ImGui::End();
 		}
-		ImGui::End();
+
+		ImGui::PopStyleColor(1);
+
+		ImGui::SetNextWindowSize({ 600,400 });
+		ImGui::Begin("Velecent.rip", NULL, ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoResize);
+		{
+
+			Sprint::RenderModule();
+			ImGui::End();
+
+		}
 	}
 
 	ImGui::EndFrame();

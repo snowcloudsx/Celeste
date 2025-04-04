@@ -48,6 +48,9 @@
     <ClCompile Include="me\snow\sdk\minecraft\server\Server.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="me\snow\Modules\Sprint\Sprint.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="includes\jni\classfile_constants.h">
@@ -129,6 +132,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="me\snow\sdk\minecraft\server\Server.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="me\snow\Modules\Sprint\Sprint.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

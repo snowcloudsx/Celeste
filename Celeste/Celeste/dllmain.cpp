@@ -54,13 +54,13 @@ void startThread(HMODULE mod) {
 
 
 
-    while (!GetAsyncKeyState(VK_DELETE)) {
+    while (!GetAsyncKeyState(VK_END)) {
 
 
-        std::cout << " Server Instance: " << c_minecraft::get_minecraft().getServerData().cached_object << "\n";
+        /*std::cout << " Server Instance: " << c_minecraft::get_minecraft().getServerData().cached_object << "\n";*/
 
 
-        Sleep(1000);
+        //Sleep(1000);
 
 
     }

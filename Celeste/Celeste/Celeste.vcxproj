@@ -150,6 +150,7 @@
     <ClCompile Include="includes\ImGui\imgui_impl_win32.cpp" />
     <ClCompile Include="me\snow\gui\GUI.cpp" />
     <ClCompile Include="me\snow\gui\Hook.cpp" />
+    <ClCompile Include="me\snow\Modules\Sprint\Sprint.cpp" />
     <ClCompile Include="me\snow\sdk\mapper\mapper.cpp" />
     <ClCompile Include="me\snow\jvm\jvm.cpp" />
     <ClCompile Include="me\snow\sdk\classes\classes.cpp" />
@@ -179,6 +180,7 @@
     <ClInclude Include="includes\MinHook.h" />
     <ClInclude Include="me\snow\gui\GUI.h" />
     <ClInclude Include="me\snow\gui\Hook.h" />
+    <ClInclude Include="me\snow\Modules\Sprint\Sprint.h" />
     <ClInclude Include="me\snow\sdk\mapper\mapper.h" />
     <ClInclude Include="me\snow\jvm\jvm.h" />
     <ClInclude Include="me\snow\sdk\classes\classes.h" />

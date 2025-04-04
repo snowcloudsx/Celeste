@@ -26,6 +26,20 @@ namespace jvm {
 
 	inline JavaVM* vm = nullptr;
 	inline JNIEnv* env = nullptr;
+
+
+
+	// Attach to JVM
+	static bool AttachToJVM();
+
+
+
+
+	// Get Player Object
+	jobject GetMinecraftPlayer();
+
+
+
 	
 }
 

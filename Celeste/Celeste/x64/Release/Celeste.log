@@ -1,7 +1,8 @@
-﻿  dllmain.cpp
-  Minecraft.cpp
-  Entity.cpp
-  Server.cpp
+﻿  GUI.cpp
+Sprint.obj : warning LNK4006: "struct _jvmtiEnv * jvm::jvenv" (?jvenv@jvm@@3PEAU_jvmtiEnv@@EA) already defined in dllmain.obj; second definition ignored
+Sprint.obj : warning LNK4006: "bool jvm::AlreadyCheckedForge" (?AlreadyCheckedForge@jvm@@3_NA) already defined in dllmain.obj; second definition ignored
+Sprint.obj : warning LNK4006: "bool jvm::isLunar" (?isLunar@jvm@@3_NA) already defined in dllmain.obj; second definition ignored
+Sprint.obj : warning LNK4006: "bool jvm::IsForgeExisting" (?IsForgeExisting@jvm@@3_NA) already defined in dllmain.obj; second definition ignored
 jvm.obj : warning LNK4006: "struct _jvmtiEnv * jvm::jvenv" (?jvenv@jvm@@3PEAU_jvmtiEnv@@EA) already defined in dllmain.obj; second definition ignored
 jvm.obj : warning LNK4006: "bool jvm::AlreadyCheckedForge" (?AlreadyCheckedForge@jvm@@3_NA) already defined in dllmain.obj; second definition ignored
 jvm.obj : warning LNK4006: "bool jvm::isLunar" (?isLunar@jvm@@3_NA) already defined in dllmain.obj; second definition ignored
@@ -24,10 +25,10 @@ Server.obj : warning LNK4006: "bool jvm::isLunar" (?isLunar@jvm@@3_NA) already d
 Server.obj : warning LNK4006: "bool jvm::IsForgeExisting" (?IsForgeExisting@jvm@@3_NA) already defined in dllmain.obj; second definition ignored
 LINK : warning LNK4098: defaultlib 'LIBCMT' conflicts with use of other libs; use /NODEFAULTLIB:library
 LINK : warning LNK4098: defaultlib 'LIBCMTD' conflicts with use of other libs; use /NODEFAULTLIB:library
-C:\Users\Snow\Music\Celeste\Celeste\x64\Release\Celeste.dll : warning LNK4088: image being generated due to /FORCE option; image may not run
+C:\Users\xdemo\CLionProjects\Celeste\Celeste\x64\Release\Celeste.dll : warning LNK4088: image being generated due to /FORCE option; image may not run
   Generating code
-  17 of 192 functions ( 8.9%) were compiled, the rest were copied from previous compilation.
-    3 functions were new in current compilation
-    4 functions had inline decision re-evaluated but remain unchanged
+  2 of 256 functions ( 0.8%) were compiled, the rest were copied from previous compilation.
+    0 functions were new in current compilation
+    6 functions had inline decision re-evaluated but remain unchanged
   Finished generating code
-  Celeste.vcxproj -> C:\Users\Snow\Music\Celeste\Celeste\x64\Release\Celeste.dll
+  Celeste.vcxproj -> C:\Users\xdemo\CLionProjects\Celeste\Celeste\x64\Release\Celeste.dll

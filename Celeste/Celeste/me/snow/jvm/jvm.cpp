@@ -254,3 +254,44 @@ c_jobject::~c_jobject()
 	}
 
 }
+
+bool jvm::AttachToJVM()
+{
+	jsize vmCount;
+	if (JNI_GetCreatedJavaVMs(&vm, 1, &vmCount) != JNI_OK || vmCount == 0) {
+		printf("JavaVM not found\n");
+		return false;
+	}
+
+	jint res = vm->GetEnv((void**)&env, JNI_VERSION_1_8);
+	if (res == JNI_EDETACHED) {
+		res = vm->AttachCurrentThread((void**)&env, nullptr);
+	}
+	if (res != JNI_OK) {
+		printf("Failed to set up JNI\n");
+		return false;
+	}
+
+
+	return true;
+}
+
+jobject jvm::GetMinecraftPlayer()
+{
+	if (!AttachToJVM()) return nullptr;
+
+	jclass minecraftClass = env->FindClass("ave");
+	if (!minecraftClass) return nullptr;
+
+	jmethodID getMinecraft = env->GetStaticMethodID(minecraftClass, "A", "()Lave;");
+	if (!getMinecraft) return nullptr;
+
+	jobject mc_instance = env->CallStaticObjectMethod(minecraftClass, getMinecraft);
+	if (!mc_instance) return nullptr;
+
+	jfieldID playerField = env->GetFieldID(minecraftClass, "h", "Lbew;");
+	if (!playerField) return nullptr;
+
+	jobject player = env->GetObjectField(mc_instance, playerField);
+	return player;
+}

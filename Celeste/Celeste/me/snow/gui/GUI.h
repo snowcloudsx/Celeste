@@ -8,6 +8,8 @@
 #include "../../../includes/ImGui/imgui_impl_win32.h"
 #include "../../../includes/ImGui/imgui_impl_opengl3.h"
 
+#include "../Modules/Sprint/Sprint.h"
+
 namespace GUI
 {
 	//
@@ -33,6 +35,8 @@ namespace GUI
 	static bool isToggled = false;
 
 	void setDoDraw(bool new_value);
+
+	void hudDraw();
 }
 
 #endif

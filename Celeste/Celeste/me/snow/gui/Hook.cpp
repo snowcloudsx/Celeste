@@ -100,11 +100,12 @@ LRESULT __stdcall WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 	if (GUI::getIsInit())
 	{
 		/* If VK_INSERT, change menu draw state */
-		if (msg == WM_KEYDOWN && wParam == VK_INSERT)
+		if (msg == WM_KEYDOWN && wParam == 'H')
 			GUI::setDoDraw(!GUI::getDoDraw());
 
 		if (GUI::getDoDraw() && ImGui_ImplWin32_WndProcHandler(hWnd, msg, wParam, lParam))
 			return true;
+		
 	}
 
 	return CallWindowProcA(origin_wndproc, hWnd, msg, wParam, lParam);
