@@ -150,7 +150,7 @@
     <ClCompile Include="includes\ImGui\imgui_impl_win32.cpp" />
     <ClCompile Include="me\snow\gui\GUI.cpp" />
     <ClCompile Include="me\snow\gui\Hook.cpp" />
-    <ClCompile Include="me\snow\Modules\Sprint\Sprint.cpp" />
+    <ClCompile Include="me\snow\modules\modules.cpp" />
     <ClCompile Include="me\snow\sdk\mapper\mapper.cpp" />
     <ClCompile Include="me\snow\jvm\jvm.cpp" />
     <ClCompile Include="me\snow\sdk\classes\classes.cpp" />
@@ -159,6 +159,8 @@
     <ClCompile Include="me\snow\sdk\minecraft\server\Server.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="includes\Fonts\icons.h" />
+    <ClInclude Include="includes\Fonts\mFont.h" />
     <ClInclude Include="includes\ImGui\imconfig.h" />
     <ClInclude Include="includes\ImGui\imgui.h" />
     <ClInclude Include="includes\ImGui\imgui_impl_opengl3.h" />
@@ -178,9 +180,11 @@
     <ClInclude Include="includes\jni\jvmti.h" />
     <ClInclude Include="includes\jni\jvmticmlr.h" />
     <ClInclude Include="includes\MinHook.h" />
+    <ClInclude Include="me\snow\gui\globals.h" />
     <ClInclude Include="me\snow\gui\GUI.h" />
     <ClInclude Include="me\snow\gui\Hook.h" />
-    <ClInclude Include="me\snow\Modules\Sprint\Sprint.h" />
+    <ClInclude Include="me\snow\gui\UIFunctions.h" />
+    <ClInclude Include="me\snow\modules\modules.h" />
     <ClInclude Include="me\snow\sdk\mapper\mapper.h" />
     <ClInclude Include="me\snow\jvm\jvm.h" />
     <ClInclude Include="me\snow\sdk\classes\classes.h" />

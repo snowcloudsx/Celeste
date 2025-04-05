@@ -8,7 +8,6 @@
 #include "../../../includes/ImGui/imgui_impl_win32.h"
 #include "../../../includes/ImGui/imgui_impl_opengl3.h"
 
-#include "../Modules/Sprint/Sprint.h"
 
 namespace GUI
 {
@@ -37,6 +36,8 @@ namespace GUI
 	void setDoDraw(bool new_value);
 
 	void hudDraw();
+
+	void CenterText(const char* text);
 }
 
 #endif

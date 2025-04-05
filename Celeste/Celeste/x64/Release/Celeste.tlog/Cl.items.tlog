@@ -3,7 +3,7 @@ C:\Users\xdemo\CLionProjects\Celeste\Celeste\Celeste\includes\ImGui\imgui_impl_o
 C:\Users\xdemo\CLionProjects\Celeste\Celeste\Celeste\includes\ImGui\imgui_impl_win32.cpp;C:\Users\xdemo\CLionProjects\Celeste\Celeste\Celeste\x64\Release\imgui_impl_win32.obj
 C:\Users\xdemo\CLionProjects\Celeste\Celeste\Celeste\me\snow\gui\GUI.cpp;C:\Users\xdemo\CLionProjects\Celeste\Celeste\Celeste\x64\Release\GUI.obj
 C:\Users\xdemo\CLionProjects\Celeste\Celeste\Celeste\me\snow\gui\Hook.cpp;C:\Users\xdemo\CLionProjects\Celeste\Celeste\Celeste\x64\Release\Hook.obj
-C:\Users\xdemo\CLionProjects\Celeste\Celeste\Celeste\me\snow\Modules\Sprint\Sprint.cpp;C:\Users\xdemo\CLionProjects\Celeste\Celeste\Celeste\x64\Release\Sprint.obj
+C:\Users\xdemo\CLionProjects\Celeste\Celeste\Celeste\me\snow\modules\modules.cpp;C:\Users\xdemo\CLionProjects\Celeste\Celeste\Celeste\x64\Release\modules.obj
 C:\Users\xdemo\CLionProjects\Celeste\Celeste\Celeste\me\snow\sdk\mapper\mapper.cpp;C:\Users\xdemo\CLionProjects\Celeste\Celeste\Celeste\x64\Release\mapper.obj
 C:\Users\xdemo\CLionProjects\Celeste\Celeste\Celeste\me\snow\jvm\jvm.cpp;C:\Users\xdemo\CLionProjects\Celeste\Celeste\Celeste\x64\Release\jvm.obj
 C:\Users\xdemo\CLionProjects\Celeste\Celeste\Celeste\me\snow\sdk\classes\classes.cpp;C:\Users\xdemo\CLionProjects\Celeste\Celeste\Celeste\x64\Release\classes.obj

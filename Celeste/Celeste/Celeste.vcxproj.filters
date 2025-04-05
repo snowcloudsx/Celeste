@@ -48,7 +48,7 @@
     <ClCompile Include="me\snow\sdk\minecraft\server\Server.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="me\snow\Modules\Sprint\Sprint.cpp">
+    <ClCompile Include="me\snow\modules\modules.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -134,7 +134,19 @@
     <ClInclude Include="me\snow\sdk\minecraft\server\Server.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="me\snow\Modules\Sprint\Sprint.h">
+    <ClInclude Include="includes\Fonts\mFont.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="me\snow\gui\globals.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="me\snow\modules\modules.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="includes\Fonts\icons.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="me\snow\gui\UIFunctions.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

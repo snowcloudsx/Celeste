@@ -5,62 +5,59 @@
 #include "me/snow/sdk/minecraft/Minecraft.h"
 #include "me/snow/gui/Hook.h"
 #include <iostream>
+#include "includes/MinHook.h"
+#include "me/snow/eventbus/eventbus.h"
+#include "includes/ImGui/imgui.h"
+#include "includes/Fonts/icons.h"
+#include "includes/Fonts/mFont.h"
+#include <io.h>
+
+typedef BOOL(WINAPI* tWriteConsoleA)(HANDLE, const VOID*, DWORD, LPDWORD, LPVOID);
+tWriteConsoleA oWriteConsoleA = nullptr;
+
+BOOL WINAPI hkWriteConsoleA(HANDLE hConsoleOutput, const VOID* lpBuffer, DWORD nNumberOfCharsToWrite, LPDWORD lpNumberOfCharsWritten, LPVOID lpReserved) {
+    // Check if the output contains log-like strings (e.g., "Saving world")
+    const char* buffer = (const char*)lpBuffer;
+    if (strstr(buffer, "Saving world") || strstr(buffer, "[INFO]")) {
+        *lpNumberOfCharsWritten = nNumberOfCharsToWrite; // Pretend it wrote successfully
+        return TRUE; // Silently discard
+    }
+    return oWriteConsoleA(hConsoleOutput, lpBuffer, nNumberOfCharsToWrite, lpNumberOfCharsWritten, lpReserved);
+}
+
+void InitializeHook() {
+    MH_Initialize();
+    MH_CreateHookApi(L"kernel32.dll", "WriteConsoleA", &hkWriteConsoleA, (LPVOID*)&oWriteConsoleA);
+    MH_EnableHook(MH_ALL_HOOKS);
+}
+
 void startThread(HMODULE mod) {
+    
+
     FILE* buf = nullptr;
     AllocConsole();
     freopen_s(&buf, "CONOUT$", "w", stdout);
 
 
-    
-
-
-
 
     jvm::load();
+    
 
-    if (jvm::env->FindClass("net/minecraftforge/common/ForgeVersion") != nullptr) {
-        classes::load();
-        SetConsoleTitle("Celeste b0.01 - forge 1.8.9 |  snow.rip ");
-    }
+   jvm::setTitleAndMappings();
 
-    if (jvm::env->FindClass("ave") != nullptr && jvm::env->FindClass("net/minecraftforge/common/ForgeVersion") == nullptr) {
-        classes::load();
-        SetConsoleTitle("Celeste b0.01 - Vanilla 1.8.9 |  snow.rip ");
-    }
-
-    else if(jvm::env->FindClass("ave") == nullptr && jvm::env->FindClass("net/minecraftforge/common/ForgeVersion") == nullptr){
-        jclass test = nullptr;
-        jvm::AssignClass("net.minecraft.client.Minecraft", test);
-
-        if (jvm::env->GetStaticMethodID(test, "getInstance", "()Lnet/minecraft/client/Minecraft;") != nullptr) {
-            classes::load1_24();
-            SetConsoleTitle("Celeste b0.01 - Lunar 1.21.4 |  snow.rip ");
-
-
-
-        }
-        else {
-            classes::loadLunar();
-            SetConsoleTitle("Celeste b0.01 - Lunar 1.8.9 |  snow.rip ");
-
-
-        }
-    }
-   
 
 
     if (Hook::init())
         goto _shutdown;
 
 
-
     while (!GetAsyncKeyState(VK_END)) {
 
 
-        /*std::cout << " Server Instance: " << c_minecraft::get_minecraft().getServerData().cached_object << "\n";*/
+        InitializeHook();
 
-
-        //Sleep(1000);
+        CheckForKeys();
+        Sleep(1000);
 
 
     }
@@ -81,6 +78,7 @@ void startThread(HMODULE mod) {
 
 
 }
+
 
 BOOL APIENTRY DllMain( HMODULE hModule,
                        DWORD  ul_reason_for_call,

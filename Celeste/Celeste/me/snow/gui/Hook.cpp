@@ -95,21 +95,134 @@ bool Hook::getIsInit()
 //
 
 extern LRESULT ImGui_ImplWin32_WndProcHandler(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
+
+static bool g_bRawInputInitialized = false;
+static RAWINPUTDEVICE g_RawInputDevices[1];
+
 LRESULT __stdcall WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 {
-	if (GUI::getIsInit())
-	{
-		/* If VK_INSERT, change menu draw state */
-		if (msg == WM_KEYDOWN && wParam == 'H')
-			GUI::setDoDraw(!GUI::getDoDraw());
+    static bool bCursorWasVisible = false;
 
-		if (GUI::getDoDraw() && ImGui_ImplWin32_WndProcHandler(hWnd, msg, wParam, lParam))
-			return true;
-		
-	}
+    if (GUI::getIsInit())
+    {
+        /* Toggle menu with H key */
+        if (msg == WM_KEYDOWN && wParam == 'H')
+        {
+            bool newState = !GUI::isToggled;
+            GUI::setDoDraw(newState);
 
-	return CallWindowProcA(origin_wndproc, hWnd, msg, wParam, lParam);
+            // Initialize raw input blocking on first toggle
+            if (!g_bRawInputInitialized)
+            {
+                g_RawInputDevices[0].usUsagePage = 0x01; // HID_USAGE_PAGE_GENERIC
+                g_RawInputDevices[0].usUsage = 0x02;     // HID_USAGE_GENERIC_MOUSE
+                g_RawInputDevices[0].dwFlags = RIDEV_REMOVE; // Remove when not needed
+                g_RawInputDevices[0].hwndTarget = nullptr;
+
+                if (RegisterRawInputDevices(g_RawInputDevices, 1, sizeof(g_RawInputDevices[0])))
+                {
+                    g_bRawInputInitialized = true;
+                }
+            }
+
+            // Toggle raw input blocking
+            if (g_bRawInputInitialized)
+            {
+                g_RawInputDevices[0].dwFlags = newState ? RIDEV_REMOVE : 0;
+                RegisterRawInputDevices(g_RawInputDevices, 1, sizeof(g_RawInputDevices[0]));
+            }
+
+            // Handle cursor visibility
+            if (newState)
+            {
+                bCursorWasVisible = ::ShowCursor(TRUE) >= 0;
+                if (!bCursorWasVisible) ::ShowCursor(TRUE);
+                // Clip cursor to window
+                RECT rect;
+                GetClientRect(hWnd, &rect);
+                ClientToScreen(hWnd, reinterpret_cast<POINT*>(&rect.left));
+                ClientToScreen(hWnd, reinterpret_cast<POINT*>(&rect.right));
+                ClipCursor(&rect);
+            }
+            else
+            {
+                if (!bCursorWasVisible)
+                {
+                    ::ShowCursor(FALSE);
+                }
+                ClipCursor(nullptr); // Release cursor clip
+            }
+            return true;
+        }
+
+        if (GUI::isToggled)
+        {
+            ImGuiIO& io = ImGui::GetIO();
+
+            // Process input with ImGui
+            ImGui_ImplWin32_WndProcHandler(hWnd, msg, wParam, lParam);
+
+            // Block ALL input when menu is open
+            switch (msg)
+            {
+                // Mouse messages
+            case WM_INPUT:
+            {
+                // Block raw mouse input
+                UINT dwSize = 0;
+                GetRawInputData((HRAWINPUT)lParam, RID_INPUT, nullptr, &dwSize, sizeof(RAWINPUTHEADER));
+                LPBYTE lpb = new BYTE[dwSize];
+                if (GetRawInputData((HRAWINPUT)lParam, RID_INPUT, lpb, &dwSize, sizeof(RAWINPUTHEADER)) == dwSize)
+                {
+                    RAWINPUT* raw = (RAWINPUT*)lpb;
+                    if (raw->header.dwType == RIM_TYPEMOUSE)
+                    {
+                        delete[] lpb;
+                        return 0;
+                    }
+                }
+                delete[] lpb;
+                break;
+            }
+
+            case WM_MOUSEMOVE:
+            case WM_MOUSEHOVER:
+            case WM_MOUSELEAVE:
+            case WM_LBUTTONDOWN: case WM_LBUTTONDBLCLK:
+            case WM_RBUTTONDOWN: case WM_RBUTTONDBLCLK:
+            case WM_MBUTTONDOWN: case WM_MBUTTONDBLCLK:
+            case WM_XBUTTONDOWN: case WM_XBUTTONDBLCLK:
+            case WM_LBUTTONUP:
+            case WM_RBUTTONUP:
+            case WM_MBUTTONUP:
+            case WM_XBUTTONUP:
+            case WM_MOUSEWHEEL:
+            case WM_MOUSEHWHEEL:
+                return true;
+
+            case WM_KEYDOWN:
+            case WM_KEYUP:
+            case WM_SYSKEYDOWN:
+            case WM_SYSKEYUP:
+            case WM_CHAR:
+                if (io.WantCaptureKeyboard)
+                    return true;
+                break;
+
+            case WM_SETCURSOR:
+                if (LOWORD(lParam) == HTCLIENT)
+                {
+                    SetCursor(LoadCursor(nullptr, IDC_ARROW));
+                    return true;
+                }
+                break;
+            }
+        }
+    }
+
+    return CallWindowProcA(origin_wndproc, hWnd, msg, wParam, lParam);
 }
+
 
 bool __stdcall wglSwapBuffers(HDC hDc)
 {

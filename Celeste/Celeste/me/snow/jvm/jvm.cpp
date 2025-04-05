@@ -19,6 +19,37 @@ void jvm::load() {
 
 
 
+void jvm::setTitleAndMappings()
+{
+		if (jvm::env->FindClass("net/minecraftforge/common/ForgeVersion") != nullptr) {
+			classes::load();
+			SetConsoleTitle("Celeste b0.01 - forge 1.8.9 |  snow.rip ");
+	}
+
+	if (jvm::env->FindClass("ave") != nullptr && jvm::env->FindClass("net/minecraftforge/common/ForgeVersion") == nullptr) {
+			classes::load();
+			SetConsoleTitle("Celeste b0.01 - Vanilla 1.8.9 |  snow.rip ");
+	}
+
+	else if(jvm::env->FindClass("ave") == nullptr && jvm::env->FindClass("net/minecraftforge/common/ForgeVersion") == nullptr){
+			jclass test = nullptr;
+			jvm::AssignClass("net.minecraft.client.Minecraft", test);
+
+			if (jvm::env->GetStaticMethodID(test, "getInstance", "()Lnet/minecraft/client/Minecraft;") != nullptr) {
+					classes::load1_24();
+					SetConsoleTitle("Celeste b0.01 - Lunar 1.21.4 |  snow.rip ");
+
+			}
+			else {
+					classes::loadLunar();
+					SetConsoleTitle("Celeste b0.01 - Lunar 1.8.9 |  snow.rip ");
+
+
+			}
+	}
+}
+
+
 jobject classLoader;
 jmethodID mid_findClass;
 
@@ -255,43 +286,6 @@ c_jobject::~c_jobject()
 
 }
 
-bool jvm::AttachToJVM()
-{
-	jsize vmCount;
-	if (JNI_GetCreatedJavaVMs(&vm, 1, &vmCount) != JNI_OK || vmCount == 0) {
-		printf("JavaVM not found\n");
-		return false;
-	}
-
-	jint res = vm->GetEnv((void**)&env, JNI_VERSION_1_8);
-	if (res == JNI_EDETACHED) {
-		res = vm->AttachCurrentThread((void**)&env, nullptr);
-	}
-	if (res != JNI_OK) {
-		printf("Failed to set up JNI\n");
-		return false;
-	}
 
 
-	return true;
-}
-
-jobject jvm::GetMinecraftPlayer()
-{
-	if (!AttachToJVM()) return nullptr;
-
-	jclass minecraftClass = env->FindClass("ave");
-	if (!minecraftClass) return nullptr;
-
-	jmethodID getMinecraft = env->GetStaticMethodID(minecraftClass, "A", "()Lave;");
-	if (!getMinecraft) return nullptr;
-
-	jobject mc_instance = env->CallStaticObjectMethod(minecraftClass, getMinecraft);
-	if (!mc_instance) return nullptr;
-
-	jfieldID playerField = env->GetFieldID(minecraftClass, "h", "Lbew;");
-	if (!playerField) return nullptr;
-
-	jobject player = env->GetObjectField(mc_instance, playerField);
-	return player;
-}
+//jvm load already existed also player method get alr exists

@@ -13,6 +13,7 @@ namespace jvm {
 	bool AssignClass(std::string name, jclass& out);
 	void setupClassLoader();
 
+	void setTitleAndMappings();
 	jclass ForgeFindClass(const char* name);
 	jclass LunarFindClass(const char* clsName, JNIEnv* env);
 	bool isForge();

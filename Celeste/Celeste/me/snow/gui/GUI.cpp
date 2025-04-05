@@ -1,14 +1,21 @@
 ﻿#include "GUI.h"
 #include <iostream>
 #include <chrono>
+#include "../../includes/Fonts/icons.h" //icons
+#include "globals.h"
+#include "UIFunctions.h"
+#include "../../../includes/Fonts/mFont.h"
+using namespace ImGui;
 static bool is_init{};
 static bool do_draw{true};
 
-//
+//yes build
 // Management functions
-//
+// now lets fix errors yes get any omppoinets
 
+// did you fix it?
 
+// 1 sec ill be back in 10 mins 
 void SetupImGuiStyle()
 {
 	// Purple Comfy style by RegularLunar from ImThemes
@@ -98,6 +105,24 @@ void SetupImGuiStyle()
 	style.Colors[ImGuiCol_NavWindowingHighlight] = ImVec4(1.0f, 1.0f, 1.0f, 0.699999988079071f);
 	style.Colors[ImGuiCol_NavWindowingDimBg] = ImVec4(0.800000011920929f, 0.800000011920929f, 0.800000011920929f, 0.2000000029802322f);
 	style.Colors[ImGuiCol_ModalWindowDimBg] = ImVec4(0.800000011920929f, 0.800000011920929f, 0.800000011920929f, 0.3499999940395355f);
+
+	ImGuiIO& io = ImGui::GetIO();
+
+	static const ImWchar icons_ranges[] = { 0xf000, 0xf3ff, 0 };
+	ImFontConfig icons_config;
+
+	ImFontConfig CustomFont;
+	CustomFont.FontDataOwnedByAtlas = false;
+
+	icons_config.MergeMode = true;
+	icons_config.PixelSnapH = true;
+	icons_config.OversampleH = 3;
+	icons_config.OversampleV = 3;
+
+	io.Fonts->AddFontFromMemoryTTF(const_cast<std::uint8_t*>(mFont), sizeof(mFont), 15, &CustomFont);
+	io.Fonts->AddFontFromMemoryCompressedTTF(font_awesome_data, font_awesome_size, 32.5f, &icons_config, icons_ranges);
+
+	io.Fonts->AddFontDefault();
 }
 bool GUI::init(HWND wnd_handle)
 {
@@ -151,7 +176,7 @@ void GUI::draw()
 	if (!do_draw)
 		return;
 
-	if (GetAsyncKeyState(VK_HOME) & 0x0001) {
+	if (GetAsyncKeyState(VK_DELETE) & 0x0001) {
 		GUI::isToggled = !GUI::isToggled;
 	}
 
@@ -176,27 +201,139 @@ void GUI::draw()
 	ImGui::End();
 
 	if (GUI::isToggled) {
-		//add a non-clickable or clickthrough window for the background
-		ImGui::SetNextWindowPos({ 0,0 });
-		ImGui::SetNextWindowSize({ ImGui::GetIO().DisplaySize.x, ImGui::GetIO().DisplaySize.y });
 
-		ImGui::PushStyleColor(ImGuiCol_WindowBg, ImVec4(0.0f, 0.0f, 0.0f, 0.5f));
+		ImGui::SetNextWindowPos(ImVec2(50,50), ImGuiCond_Once);
+		ImGui::SetNextWindowSize(ImVec2(800, 500), ImGuiCond_Once);
+		ImGui::SetNextWindowBgAlpha(1.0f);
 
-		ImGui::Begin("Background", NULL, ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoInputs);
+		ImGui::Begin("##Main", &globals.active, ImGuiWindowFlags_NoSavedSettings | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoScrollbar);
 		{
-			ImGui::End();
+			// Header Child with "Velecent.rip"
+			ImGui::BeginChild("##header", ImVec2(0, 50), true);
+			{
+				ImGui::SetCursorPosY(15); // Center vertically in the 50px height
+				CenterText("Velecent.rip");
+			}
+			ImGui::EndChild();
+
+			// Sidebar and Content Layout
+			ImGui::BeginChild("##main_layout", ImVec2(0, 0), false); // Full remaining height
+			{
+				// Sidebar (vertical button panel)
+				ImGui::BeginChild("##sidebar", ImVec2(126, 0), true, ImGuiWindowFlags_NoScrollbar);
+				{
+					ImGui::PushStyleVar(ImGuiStyleVar_ItemSpacing, ImVec2(0, 10));
+					ImGui::SetCursorPosY(20);
+
+					if (BetterButton(ICON_FA_CROSSHAIRS)) {
+						globals.page = 0;
+						globals.subPage = 1;
+					}
+					if (ImGui::IsItemHovered()) ImGui::SetTooltip("Combat Modules");
+
+					if (BetterButton(ICON_FA_WHEELCHAIR)) {
+						globals.page = 3;
+						globals.subPage = 4;
+					}
+					if (ImGui::IsItemHovered()) ImGui::SetTooltip("Movement Modules");
+
+					if (BetterButton(ICON_FA_EYE)) {
+						globals.page = 4;
+						globals.subPage = 4;
+					}
+					if (ImGui::IsItemHovered()) ImGui::SetTooltip("Visual Modules (soon)");
+
+					if (BetterButton(ICON_FA_COGS)) {
+						globals.page = 2;
+						globals.subPage = 0;
+					}
+					if (ImGui::IsItemHovered()) ImGui::SetTooltip("Settings");
+
+					ImGui::PopStyleVar();
+				}
+				ImGui::EndChild();
+
+				ImGui::SameLine();
+				ImGui::BeginChild("##content", ImVec2(0, 0), true);
+				{
+					static bool leftClicker = false;
+					static bool rightClicker = false;
+					static bool backtrackEnabled = false;
+					static bool testedPacks = false;
+					static bool Sprint = false;
+					static bool disableOnHit = false;
+					static bool velocity = false;
+
+					static float cps = 1.0f;
+					static float rightCps = 1.0f;
+					static float delay = 10.0f;
+					static float delayMin = 10.0f;
+					static float velX = 0.0f;
+					static float velY = 0.0f;
+					static float velZ = 0.0f;
+//good job
+
+					ImGui::SetCursorPosY(10);
+					ImGui::Separator();
+					// if you send me the link for the other project i can start making the module base yes you dont need to share this one sure so i can go back and fourth 
+					if (globals.page == 0) {
+						if (BeginTabBar("CombatTabs", ImGuiTabBarFlags_FittingPolicyScroll)) {
+							if (globals.subPage == 1) {
+								if (BeginTabItem("Clicker")) {
+									Checkbox("Left Clicker", &leftClicker);
+									Text("Left CPS");
+
+									ImGui::Spacing();
+									Checkbox("Right Clicker", &rightClicker);
+									Text("Right CPS");									EndTabItem();
+								}
+								if (BeginTabItem("Backtrack")) {
+									Checkbox("Backtrack", &backtrackEnabled);
+									ImGui::Text("Delay Min");
+									ImGui::Text("Delay Max");									Checkbox("Disable on Hit", &disableOnHit);
+									Checkbox("Target Packets Only", &testedPacks);
+									EndTabItem();
+								}
+							}
+							EndTabBar();
+						}
+					}
+					else if (globals.page == 3) {
+						if (BeginTabBar("MovementTabs")) {
+							if (globals.subPage == 4) {
+								if (BeginTabItem("Ground")) {
+									Checkbox("Sprint", &Sprint);
+									ImGui::Separator();
+									Checkbox("Velocity", &velocity);
+									ImGui::Text("X Value");
+									ImGui::Text("Y Value");
+									ImGui::Text("Z Value");
+									EndTabItem();
+								}
+								if (BeginTabItem("Air")) {
+									ImGui::Text("Coming Soon");
+									EndTabItem();
+								}
+							}
+							EndTabBar();
+						}
+					}
+					else if (globals.page == 4) {
+						ImGui::Text("Visual Modules - Coming Soon");
+					}
+					else if (globals.page == 2) {
+						ImGui::SetCursorPosX(50);
+						ImGui::Text("Select Theme:");
+
+						ImGui::Spacing();
+					}
+				}
+				ImGui::EndChild();
+			}
+			ImGui::EndChild();
 		}
-
-		ImGui::PopStyleColor(1);
-
-		ImGui::SetNextWindowSize({ 600,400 });
-		ImGui::Begin("Velecent.rip", NULL, ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoResize);
-		{
-
-			Sprint::RenderModule();
-			ImGui::End();
-
-		}
+		ImGui::End();
+		
 	}
 
 	ImGui::EndFrame();
@@ -213,6 +350,10 @@ bool GUI::getIsInit()
 	return is_init;
 }
 
+
+//it works
+
+// was being big back grabbing ice cream
 bool GUI::getDoDraw()
 {
 	return do_draw;
@@ -221,4 +362,11 @@ bool GUI::getDoDraw()
 void GUI::setDoDraw(bool new_value)
 {
 	do_draw = new_value;
+}
+
+void GUI::CenterText(const char* text) {
+	if (!text) return;
+	float width = ImGui::CalcTextSize(text).x;
+	ImGui::SetCursorPosX((ImGui::GetWindowWidth() - width) * 0.5f);
+	ImGui::Text(text);
 }
